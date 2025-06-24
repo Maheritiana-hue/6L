@@ -5,11 +5,10 @@ const drawnText = document.getElementById("drawn");
 const resultText = document.getElementById("result");
 const triesText = document.getElementById("tries");
 
-let attempts = 1;
+let attempts = 1; // une seule tentative
+let drawnNumbers = drawNumbers(); // tirage initial
 
-// Tirage initial : 6 nombres uniques entre 1 et 100
-let drawnNumbers = drawNumbers();
-
+// Fonction : tirer 6 nombres aléatoires uniques entre 1 et 100
 function drawNumbers() {
   const numbers = new Set();
   while (numbers.size < 6) {
@@ -18,10 +17,12 @@ function drawNumbers() {
   return Array.from(numbers).sort((a, b) => a - b);
 }
 
+// Afficher le nombre d’essais restants
 function updateTries() {
-  triesText.textContent = `🧮 Tentatives restantes : ${attempts}`;
+  triesText.textContent = `🧮 Tentative restante : ${attempts}`;
 }
 
+// Désactiver les champs + bouton jouer
 function disableInputs() {
   inputs.forEach(input => input.disabled = true);
   playBtn.style.display = "none";
@@ -35,6 +36,7 @@ playBtn.addEventListener("click", () => {
 
   const uniqueUserNumbers = [...new Set(userNumbers)];
 
+  // Vérification : 6 numéros différents obligatoires
   if (uniqueUserNumbers.length !== 6) {
     alert("⚠️ Entrez exactement 6 numéros différents entre 1 et 100.");
     return;
@@ -42,34 +44,28 @@ playBtn.addEventListener("click", () => {
 
   const matches = uniqueUserNumbers.filter(n => drawnNumbers.includes(n));
 
+  // Afficher les numéros tirés
   drawnText.textContent = `🎯 Numéros gagnants : ${drawnNumbers.join(", ")}`;
 
+  // Affichage du résultat
   if (matches.length === 6) {
-    resultText.textContent = `🏆 Incroyable ! Tu as trouvé les 6 numéros !`;
+    resultText.textContent = `🏆 Incroyable ! Tu as trouvé les 6 numéros du premier coup !`;
     resultText.style.color = "blue";
-    disableInputs();
-  } else if (attempts === 1) {
-    attempts--;
-    resultText.textContent = `💥 Plus de tentatives. Les bons numéros étaient : ${drawnNumbers.join(", ")}`;
-    resultText.style.color = "red";
-    disableInputs();
+  } else if (matches.length > 0) {
+    resultText.textContent = `✅ Tu as trouvé ${matches.length} bon${matches.length > 1 ? "s" : ""} numéro${matches.length > 1 ? "s" : ""} : ${matches.join(", ")}`;
+    resultText.style.color = "green";
   } else {
-    attempts--;
-    if (matches.length > 0) {
-      resultText.textContent = `✅ Tu as trouvé ${matches.length} numéro(s) : ${matches.join(", ")}`;
-      resultText.style.color = "green";
-    } else {
-      resultText.textContent = `❌ Aucun bon numéro. Réessaie !`;
-      resultText.style.color = "red";
-    }
-
-    // Afficher le bouton rejouer même si le jeu n'est pas fini
-    disableInputs();
+    resultText.textContent = `❌ Aucun bon numéro. Essaie encore !`;
+    resultText.style.color = "red";
   }
 
+  // Fin de la partie après 1 tentative
+  attempts = 0;
   updateTries();
+  disableInputs();
 });
 
+// Bouton rejouer
 resetBtn.addEventListener("click", () => {
   attempts = 1;
   drawnNumbers = drawNumbers();
@@ -84,4 +80,4 @@ resetBtn.addEventListener("click", () => {
   });
 });
 
-updateTries();
+updateTries(); // Initialiser affichage
