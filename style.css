@@ -3,6 +3,10 @@ body {
   text-align: center;
   background: #000000;
   padding: 40px;
+  box-shadow: 0 0 15px 10px #1a1a1a,
+              0 0 15px 10px #0a0a0a;
+  margin: 10px 20px;
+  border-radius: 10px;
 }
 
 h1, p{
