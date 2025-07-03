@@ -5,7 +5,7 @@ body {
   padding: 40px;
   box-shadow: 0 0 15px 10px #1a1a1a,
               0 0 15px 10px #0a0a0a;
-  margin: 10px 20px;
+   margin: 10px 20px;
   border-radius: 10px;
 }
 
@@ -23,9 +23,12 @@ input {
   font-size: 16px;
   margin: 5px;
   text-align: center;
+  background: linear-gradient(105deg,#0e2550,#7700ff);
+  color: aqua;
 }
 
 button {
+  background-color: violet;
   padding: 10px 20px;
   font-size: 16px;
   margin: 10px;
@@ -62,5 +65,5 @@ footer {
     font-size: 15px;
     color: #0000ff;
   }
-  .p1{color: red;}
+  .p1{color: #55bb35;}
 }

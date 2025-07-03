@@ -12,7 +12,7 @@ let drawnNumbers = drawNumbers(); // tirage initial
 function drawNumbers() {
   const numbers = new Set();
   while (numbers.size < 6) {
-    numbers.add(Math.floor(Math.random() * 100) + 1);
+    numbers.add(Math.floor(Math.random() * 50) + 1);
   }
   return Array.from(numbers).sort((a, b) => a - b);
 }
@@ -32,13 +32,13 @@ function disableInputs() {
 playBtn.addEventListener("click", () => {
   const userNumbers = Array.from(inputs)
     .map(input => parseInt(input.value.trim()))
-    .filter(n => !isNaN(n) && n >= 1 && n <= 100);
+    .filter(n => !isNaN(n) && n >= 1 && n <= 50);
 
   const uniqueUserNumbers = [...new Set(userNumbers)];
 
   // Vérification : 6 numéros différents obligatoires
   if (uniqueUserNumbers.length !== 6) {
-    alert("⚠️ Entrez exactement 6 numéros différents entre 1 et 100.");
+    alert("⚠️ Entrez exactement 6 numéros différents entre 1 et 50.");
     return;
   }
 
